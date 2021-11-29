@@ -26,14 +26,11 @@ public class UserContext implements User, Serializable {
     private String mspId;
 
 
-    //加密
+    //加密 这部非常重要，否则会报错" java.security.NoSuchAlgorithmException: ECDSA KeyFactory not available
     static {
         Security.addProvider(new BouncyCastleProvider());
     }
-
-
-
-
+ 
     @Override
     public String getName() {
         return name;

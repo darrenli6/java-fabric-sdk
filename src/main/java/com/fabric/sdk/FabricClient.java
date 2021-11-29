@@ -1,12 +1,20 @@
 package com.fabric.sdk;
 
+import org.apache.commons.logging.Log;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
 
 public class FabricClient {
+
+
+    private static final Logger log = LoggerFactory.getLogger(FabricClient.class);
 
     private HFClient hfClient;
 
@@ -32,6 +40,37 @@ public class FabricClient {
 
     }
 
+
+    // 安装合约
+    public void installChaincode(TransactionRequest.Type lang,
+                                 String chaincodeName,
+                                 String chaincodeVersion,
+                                 String chaincodeLocation,
+                                 String chaincodePath, List<Peer> peers
+                                 ) throws Exception{
+
+        InstallProposalRequest installProposalRequest=hfClient.newInstallProposalRequest();
+        ChaincodeID.Builder builder=ChaincodeID.newBuilder().setName(chaincodeName).setVersion(chaincodeVersion);
+
+        installProposalRequest.setChaincodeLanguage(lang);
+        installProposalRequest.setChaincodeID(builder.build());
+        installProposalRequest.setChaincodeSourceLocation(new File(chaincodeLocation));
+
+        installProposalRequest.setChaincodePath(chaincodePath);
+
+        Collection<ProposalResponse> responses=hfClient.sendInstallProposal(installProposalRequest,peers);
+
+        for (ProposalResponse response: responses){
+            if(response.getStatus().getStatus()==200){
+                 log.info("{} installed success",response.getPeer().getName());
+            }else{
+                log.error("{}  installed failed  ",response.getMessage());
+            }
+        }
+
+    }
+
+
     public Orderer getOrderer(String name,String grpcUrl,String tlsFilePath) throws  Exception{
 
         Properties properties=new Properties();
@@ -41,6 +80,7 @@ public class FabricClient {
     }
 
     public Peer getPeer(String name, String grpcUrl, String tlsFilePath) throws  Exception{
+
 
         Properties properties=new Properties();
         properties.setProperty("pemFile",tlsFilePath);
