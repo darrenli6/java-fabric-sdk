@@ -1,0 +1,8 @@
+2021-11-29 15:34:16,113 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-29 15:47:34,454 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-29 15:47:34,586 - Channel test has no peers during initialization.
+2021-11-29 15:47:35,378 - Channel Channel{id: 1, name: test} eventThread started shutdown: false  thread: null 
+2021-11-29 15:51:40,714 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-29 15:51:40,847 - Channel{id: 1, name: test} joining Peer{ id: 3, name: peer0.org1.example.com, channelName: null, url: grpcs://peer0.org1.example.com:7051}.
+2021-11-29 15:51:44,524 - Peer Peer{ id: 3, name: peer0.org1.example.com, channelName: test, url: grpcs://peer0.org1.example.com:7051} joined into channel Channel{id: 1, name: test}
+2021-11-29 15:51:44,626 - Channel Channel{id: 1, name: test} eventThread started shutdown: false  thread: null 

@@ -14,11 +14,13 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.hyperledger.fabric-sdk-java/fabric-sdk-java -->
         <dependency>
             <groupId>org.hyperledger.fabric-sdk-java</groupId>
             <artifactId>fabric-sdk-java</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.5</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -38,18 +40,14 @@
             <version>3.8</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.tuntunhz.tools/ecdsa -->
+        <dependency>
+            <groupId>com.tuntunhz.tools</groupId>
+            <artifactId>ecdsa</artifactId>
+            <version>0.0.6</version>
+        </dependency>
+
+
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <compilerArgument>-proc:none</compilerArgument>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
 </project>
