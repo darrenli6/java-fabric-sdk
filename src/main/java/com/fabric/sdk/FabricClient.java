@@ -7,9 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class FabricClient {
 
@@ -140,6 +138,84 @@ public class FabricClient {
         channel.sendTransaction(responses);
 
     }
+
+    // invoke触发合约
+    public void invoke(String channelName,TransactionRequest.Type lang,
+                                 String chaincodeName,
+                                 Orderer orderer,List<Peer> peer,String funcName,String args[]) throws Exception{
+
+        // 初始化通道
+        Channel channel=getChannel(channelName);
+        channel.addOrderer(orderer);
+        for (Peer peer1: peer){
+            channel.addPeer(peer1);
+        }
+        channel.initialize();
+
+        // 交易提案
+        TransactionProposalRequest transactionProposalRequest=hfClient.newTransactionProposalRequest();
+        transactionProposalRequest.setChaincodeLanguage(lang);
+        transactionProposalRequest.setArgs(args);
+        transactionProposalRequest.setFcn(funcName);
+
+        ChaincodeID.Builder builder=ChaincodeID.newBuilder().setName(chaincodeName);
+        transactionProposalRequest.setChaincodeID(builder.build());
+        Collection<ProposalResponse> responses=channel.sendTransactionProposal(transactionProposalRequest);
+
+        for (ProposalResponse response:responses){
+            if(response.getStatus().getStatus()==200){
+                log.info("{} invoke proposal  {} success",response.getPeer().getName(),funcName);
+            }else{
+                String logArgs[]={response.getMessage(),funcName,response.getPeer().getName()};
+                log.info("{} invoke proposal {} fail on {} ",logArgs);
+            }
+        }
+        channel.sendTransaction(responses);
+
+    }
+
+
+    public Map query(List<Peer> peer, String channelName, TransactionRequest.Type lang,
+                     String chaincodeName
+                        , String funcName, String args[]) throws Exception{
+
+        // 初始化通道
+        Channel channel=getChannel(channelName);
+
+        for (Peer peer1: peer){
+            channel.addPeer(peer1);
+        }
+        channel.initialize();
+
+        HashMap map=new HashMap();
+        QueryByChaincodeRequest queryByChaincodeRequest=hfClient.newQueryProposalRequest();
+
+
+        ChaincodeID.Builder builder=ChaincodeID.newBuilder().setName(chaincodeName);
+        queryByChaincodeRequest.setChaincodeID(builder.build());
+        queryByChaincodeRequest.setArgs(args);
+        queryByChaincodeRequest.setFcn(funcName);
+        queryByChaincodeRequest.setChaincodeLanguage(lang);
+
+        Collection<ProposalResponse> responses=channel.queryByChaincode(queryByChaincodeRequest);
+
+        for (ProposalResponse response:responses){
+            if(response.getStatus().getStatus()==200){
+                log.info("data is {} ",response.getProposalResponse().getResponse().getPayload());
+                map.put(response.getStatus().getStatus(),new String(response.getProposalResponse().getResponse().getPayload().toByteArray()));
+                return map;
+            }else{
+                log.error("data get error {} ",response.getMessage());
+                map.put(response.getStatus().getStatus(),response.getMessage());
+                return map;
+            }
+        }
+        map.put("code","404");
+        return map;
+
+    }
+
+
 
 
     public Orderer getOrderer(String name,String grpcUrl,String tlsFilePath) throws  Exception{

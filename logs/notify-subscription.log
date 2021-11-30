@@ -40,3 +40,146 @@
 2021-11-30 14:32:47,927 - Failed to load any configuration from: config.properties. Using toolkit defaults
 2021-11-30 14:32:52,499 - Channel Channel{id: 3, name: mychannel} eventThread started shutdown: false  thread: null 
 2021-11-30 14:33:11,264 - peer0.org1.example.com init success
+2021-11-30 16:57:48,473 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-30 16:57:52,260 - Channel Channel{id: 4, name: mychannel} eventThread started shutdown: false  thread: null 
+2021-11-30 16:57:52,289 - peer0.org1.example.com invoke proposal  save success
+2021-11-30 16:57:52,289 - cannot retrieve package for chaincode basicinfo/3.0, error open /var/hyperledger/production/chaincodes/basicinfo.3.0: no such file or directory invoke proposal save fail on peer0.org2.example.com 
+2021-11-30 16:59:12,666 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-30 16:59:13,583 - Installing 'basicinfo::basicinfo::3.0' language Go chaincode from directory: 'C:\Users\darren\Downloads\fabric-hospital-master\src\basicinfo' with source location: 'src\basicinfo'. chaincodePath:'basicinfo'
+2021-11-30 16:59:16,028 - Channel Channel{id: 3, name: } Sending proposal with transaction: 997b4b8460ebcbe6f5f0daa1fe25ef9a1064daefa9f06649c2b60f05aa98a719 to Peer{ id: 2, name: peer0.org2.example.com, channelName: null, url: grpcs://peer0.org2.example.com:9051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org1MSP], cause=null}
+java.lang.Exception: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org1MSP]
+	at org.hyperledger.fabric.sdk.Channel.sendProposalToPeers(Channel.java:4466)
+	at org.hyperledger.fabric.sdk.Channel.sendInstallProposal(Channel.java:2909)
+	at org.hyperledger.fabric.sdk.HFClient.sendInstallProposal(HFClient.java:671)
+	at com.fabric.sdk.FabricClient.installChaincode(FabricClient.java:61)
+	at com.fabric.sdk.SdkMain.installChain(SdkMain.java:97)
+	at com.fabric.sdk.SdkMain.main(SdkMain.java:220)
+Caused by: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org1MSP]
+	at io.grpc.Status.asRuntimeException(Status.java:533)
+	at io.grpc.stub.ClientCalls$UnaryStreamToFuture.onClose(ClientCalls.java:490)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusStatsModule$StatsClientInterceptor$1$1.onClose(CensusStatsModule.java:700)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusTracingModule$TracingClientInterceptor$1$1.onClose(CensusTracingModule.java:399)
+	at io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:510)
+	at io.grpc.internal.ClientCallImpl.access$300(ClientCallImpl.java:66)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.close(ClientCallImpl.java:630)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.access$700(ClientCallImpl.java:518)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:692)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:681)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2021-11-30 16:59:16,030 - error installing chaincode code basicinfo:3.0(chaincode /var/hyperledger/production/chaincodes/basicinfo.3.0 exists)  installed failed  
+2021-11-30 16:59:16,031 - Channel Channel{id: 3, name: } Sending proposal with transaction: 997b4b8460ebcbe6f5f0daa1fe25ef9a1064daefa9f06649c2b60f05aa98a719 to Peer{ id: 2, name: peer0.org2.example.com, channelName: null, url: grpcs://peer0.org2.example.com:9051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org1MSP], cause=null}  installed failed  
+2021-11-30 17:00:00,430 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-30 17:00:01,328 - Installing 'basicinfo::basicinfo::3.0' language Go chaincode from directory: 'C:\Users\darren\Downloads\fabric-hospital-master\src\basicinfo' with source location: 'src\basicinfo'. chaincodePath:'basicinfo'
+2021-11-30 17:00:03,856 - Channel Channel{id: 3, name: } Sending proposal with transaction: 7927ecd33d11e22a8f2c2859a6215603d1c2d5eeffb2e9b34467edcca9ee7438 to Peer{ id: 1, name: peer0.org1.example.com, channelName: null, url: grpcs://peer0.org1.example.com:7051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org2MSP], cause=null}
+java.lang.Exception: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org2MSP]
+	at org.hyperledger.fabric.sdk.Channel.sendProposalToPeers(Channel.java:4466)
+	at org.hyperledger.fabric.sdk.Channel.sendInstallProposal(Channel.java:2909)
+	at org.hyperledger.fabric.sdk.HFClient.sendInstallProposal(HFClient.java:671)
+	at com.fabric.sdk.FabricClient.installChaincode(FabricClient.java:61)
+	at com.fabric.sdk.SdkMain.installChain(SdkMain.java:97)
+	at com.fabric.sdk.SdkMain.main(SdkMain.java:220)
+Caused by: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org2MSP]
+	at io.grpc.Status.asRuntimeException(Status.java:533)
+	at io.grpc.stub.ClientCalls$UnaryStreamToFuture.onClose(ClientCalls.java:490)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusStatsModule$StatsClientInterceptor$1$1.onClose(CensusStatsModule.java:700)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusTracingModule$TracingClientInterceptor$1$1.onClose(CensusTracingModule.java:399)
+	at io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:510)
+	at io.grpc.internal.ClientCallImpl.access$300(ClientCallImpl.java:66)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.close(ClientCallImpl.java:630)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.access$700(ClientCallImpl.java:518)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:692)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:681)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2021-11-30 17:00:03,859 - Channel Channel{id: 3, name: } Sending proposal with transaction: 7927ecd33d11e22a8f2c2859a6215603d1c2d5eeffb2e9b34467edcca9ee7438 to Peer{ id: 2, name: peer0.org2.example.com, channelName: null, url: grpcs://peer0.org2.example.com:9051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org2MSP], cause=null}
+java.lang.Exception: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org2MSP]
+	at org.hyperledger.fabric.sdk.Channel.sendProposalToPeers(Channel.java:4466)
+	at org.hyperledger.fabric.sdk.Channel.sendInstallProposal(Channel.java:2909)
+	at org.hyperledger.fabric.sdk.HFClient.sendInstallProposal(HFClient.java:671)
+	at com.fabric.sdk.FabricClient.installChaincode(FabricClient.java:61)
+	at com.fabric.sdk.SdkMain.installChain(SdkMain.java:97)
+	at com.fabric.sdk.SdkMain.main(SdkMain.java:220)
+Caused by: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org2MSP]
+	at io.grpc.Status.asRuntimeException(Status.java:533)
+	at io.grpc.stub.ClientCalls$UnaryStreamToFuture.onClose(ClientCalls.java:490)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusStatsModule$StatsClientInterceptor$1$1.onClose(CensusStatsModule.java:700)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusTracingModule$TracingClientInterceptor$1$1.onClose(CensusTracingModule.java:399)
+	at io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:510)
+	at io.grpc.internal.ClientCallImpl.access$300(ClientCallImpl.java:66)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.close(ClientCallImpl.java:630)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.access$700(ClientCallImpl.java:518)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:692)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:681)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2021-11-30 17:00:03,864 - Channel Channel{id: 3, name: } Sending proposal with transaction: 7927ecd33d11e22a8f2c2859a6215603d1c2d5eeffb2e9b34467edcca9ee7438 to Peer{ id: 1, name: peer0.org1.example.com, channelName: null, url: grpcs://peer0.org1.example.com:7051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org2MSP], cause=null}  installed failed  
+2021-11-30 17:00:03,864 - Channel Channel{id: 3, name: } Sending proposal with transaction: 7927ecd33d11e22a8f2c2859a6215603d1c2d5eeffb2e9b34467edcca9ee7438 to Peer{ id: 2, name: peer0.org2.example.com, channelName: null, url: grpcs://peer0.org2.example.com:9051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org2MSP], cause=null}  installed failed  
+2021-11-30 17:05:15,061 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-30 17:05:15,934 - Installing 'basicinfo::basicinfo::3.0' language Go chaincode from directory: 'C:\Users\darren\Downloads\fabric-hospital-master\src\basicinfo' with source location: 'src\basicinfo'. chaincodePath:'basicinfo'
+2021-11-30 17:05:18,399 - Channel Channel{id: 3, name: } Sending proposal with transaction: c65ca477e4717a5594d82b4ad324860a4f2deea5ebe475dab280264a256d420b to Peer{ id: 1, name: peer0.org1.example.com, channelName: null, url: grpcs://peer0.org1.example.com:7051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org2MSP], cause=null}
+java.lang.Exception: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org2MSP]
+	at org.hyperledger.fabric.sdk.Channel.sendProposalToPeers(Channel.java:4466)
+	at org.hyperledger.fabric.sdk.Channel.sendInstallProposal(Channel.java:2909)
+	at org.hyperledger.fabric.sdk.HFClient.sendInstallProposal(HFClient.java:671)
+	at com.fabric.sdk.FabricClient.installChaincode(FabricClient.java:61)
+	at com.fabric.sdk.SdkMain.installChain(SdkMain.java:108)
+	at com.fabric.sdk.SdkMain.main(SdkMain.java:231)
+Caused by: io.grpc.StatusRuntimeException: UNKNOWN: access denied: channel [] creator org [Org2MSP]
+	at io.grpc.Status.asRuntimeException(Status.java:533)
+	at io.grpc.stub.ClientCalls$UnaryStreamToFuture.onClose(ClientCalls.java:490)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusStatsModule$StatsClientInterceptor$1$1.onClose(CensusStatsModule.java:700)
+	at io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at io.grpc.internal.CensusTracingModule$TracingClientInterceptor$1$1.onClose(CensusTracingModule.java:399)
+	at io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:510)
+	at io.grpc.internal.ClientCallImpl.access$300(ClientCallImpl.java:66)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.close(ClientCallImpl.java:630)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl.access$700(ClientCallImpl.java:518)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:692)
+	at io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:681)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2021-11-30 17:05:18,404 - Channel Channel{id: 3, name: } Sending proposal with transaction: c65ca477e4717a5594d82b4ad324860a4f2deea5ebe475dab280264a256d420b to Peer{ id: 1, name: peer0.org1.example.com, channelName: null, url: grpcs://peer0.org1.example.com:7051} failed because of: gRPC failure=Status{code=UNKNOWN, description=access denied: channel [] creator org [Org2MSP], cause=null}  installed failed  
+2021-11-30 17:05:18,404 - peer0.org2.example.com installed success
+2021-11-30 17:07:15,884 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-30 17:07:19,305 - Channel Channel{id: 4, name: mychannel} eventThread started shutdown: false  thread: null 
+2021-11-30 17:07:34,604 - peer0.org1.example.com invoke proposal  save success
+2021-11-30 17:07:34,604 - peer0.org2.example.com invoke proposal  save success
+2021-11-30 17:57:33,533 - Failed to load any configuration from: config.properties. Using toolkit defaults
+2021-11-30 17:57:37,642 - Channel Channel{id: 3, name: mychannel} eventThread started shutdown: false  thread: null 
+2021-11-30 17:57:37,684 - data is <ByteString@59f63e24 size=60> 
