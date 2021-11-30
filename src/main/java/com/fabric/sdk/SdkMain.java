@@ -1,9 +1,6 @@
 package com.fabric.sdk;
 
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.Enrollment;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.TransactionRequest;
+import org.hyperledger.fabric.sdk.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,17 +90,88 @@ public class SdkMain {
         peers.add(peer1);
         fabricClient.installChaincode(TransactionRequest.Type.GO_LANG,
                 "basicinfo",
-                "2.0","C:\\Users\\darren\\Downloads\\fabric-hospital-master",
+                "3.0","C:\\Users\\darren\\Downloads\\fabric-hospital-master",
                 "basicinfo",peers);
 
 
 
     }
 
+    // 实话化合约
+
+    public void instanceChain() throws Exception{
+
+        UserContext userContext=new UserContext();
+        userContext.setAffiliation("Org1");
+        userContext.setMspId("Org1MSP");
+        userContext.setAccount("darren");
+        userContext.setName("admin");
+
+        Enrollment enrollment=UserUtils.getEnrollment(keyFolderPath,keyFileName,certFoldePath,certFileName);
+
+        userContext.setEnrollment(enrollment);
+
+
+        FabricClient fabricClient=new FabricClient(userContext);
+
+
+
+        Peer peer0 = fabricClient.getPeer("peer0.org1.example.com","grpcs://peer0.org1.example.com:7051",tlsPeerFilePath);
+        Orderer orderer = fabricClient.getOrderer("orderer.example.com","grpcs://orderer.example.com:7050",tlsOrderFilePath);
+        String initArgs[]={""};
+        fabricClient.initChaincode("mychannel",TransactionRequest.Type.GO_LANG,
+                "basicinfo",
+                "3.0",orderer,peer0,
+                "init",initArgs);
+
+/*
+root@fab6e389b323:/opt/gopath/src/github.com/hyperledger/fabric/peer# peer chaincode list --instantiated -C mychannel
+Get instantiated chaincodes on channel mychannel:
+Name: basicinfo, Version: 2.0, Path: basicinfo, Escc: escc, Vscc: vscc
+Name: mycc, Version: 1.0, Path: github.com/chaincode/chaincode_example02/go/, Escc: escc, Vscc: vscc
+*
+* */
+
+    }
+
+
+    // 升级合约
+
+    public void upgradeChain() throws Exception{
+
+        UserContext userContext=new UserContext();
+        userContext.setAffiliation("Org1");
+        userContext.setMspId("Org1MSP");
+        userContext.setAccount("darren");
+        userContext.setName("admin");
+
+        Enrollment enrollment=UserUtils.getEnrollment(keyFolderPath,keyFileName,certFoldePath,certFileName);
+
+        userContext.setEnrollment(enrollment);
+
+
+        FabricClient fabricClient=new FabricClient(userContext);
+
+
+
+        Peer peer0 = fabricClient.getPeer("peer0.org1.example.com","grpcs://peer0.org1.example.com:7051",tlsPeerFilePath);
+        Orderer orderer = fabricClient.getOrderer("orderer.example.com","grpcs://orderer.example.com:7050",tlsOrderFilePath);
+        String initArgs[]={""};
+        fabricClient.upgradeChaincode("mychannel",TransactionRequest.Type.GO_LANG,
+                "basicinfo",
+                "3.0",orderer,peer0,
+                "init",initArgs);
+        // 调试 查看order和peer节点日志
+        // 先安装3.0 然后进行升级，不必初始化 ，可以直接将2.0覆盖
+
+
+    }
 
     public static void main(String[] args) throws Exception{
 
         SdkMain sdkMain=new SdkMain();
-        sdkMain.installChain();
+        sdkMain.upgradeChain();
+//        sdkMain.instanceChain();
+//        sdkMain.installChain();
     }
 }

@@ -39,6 +39,9 @@ Name: mycc, Version: 1.0, Path: github.com/chaincode/chaincode_example02/go/, Id
 
 
 ```
+root@fab6e389b323:/opt/gopath/src/github.com/hyperledger/fabric/peer# peer chaincode list --instantiated -C mychannel 
+Get instantiated chaincodes on channel mychannel:
+Name: mycc, Version: 1.0, Path: github.com/chaincode/chaincode_example02/go/, Escc: escc, Vscc: vscc
 ```
 
 ##### fabric-java-sdk使用说明

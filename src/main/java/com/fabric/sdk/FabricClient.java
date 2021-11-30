@@ -70,6 +70,77 @@ public class FabricClient {
 
     }
 
+    // 合约实例化
+
+    public void initChaincode(String channelName,TransactionRequest.Type lang,
+                              String chaincodeName,String chaincodeVersion,
+                              Orderer orderer,Peer peer,String funcName,String args[]) throws Exception{
+
+        // 初始化通道
+        Channel channel=getChannel(channelName);
+        channel.addPeer(peer);
+        channel.addOrderer(orderer);
+        channel.initialize();
+
+        // 提案
+        InstantiateProposalRequest instantiateProposalRequest=hfClient.newInstantiationProposalRequest();
+        instantiateProposalRequest.setArgs(args);
+        instantiateProposalRequest.setFcn(funcName);
+        instantiateProposalRequest.setChaincodeLanguage(lang);
+
+        ChaincodeID.Builder builder= ChaincodeID.newBuilder().setName(chaincodeName).setVersion(chaincodeVersion);
+        instantiateProposalRequest.setChaincodeID(builder.build());
+        Collection<ProposalResponse> responses=channel.sendInstantiationProposal(instantiateProposalRequest);
+
+        for (ProposalResponse response:responses){
+            if(response.getStatus().getStatus()==200){
+                log.info("{} init success",response.getPeer().getName());
+            }else{
+                log.info("{} init fail",response.getMessage());
+            }
+        }
+        channel.sendTransaction(responses);
+
+    }
+
+    // 升级实例化
+
+    public void upgradeChaincode(String channelName,TransactionRequest.Type lang,
+                              String chaincodeName,String chaincodeVersion,
+                              Orderer orderer,Peer peer,String funcName,String args[]) throws Exception{
+
+        // 初始化通道
+        Channel channel=getChannel(channelName);
+        channel.addPeer(peer);
+        channel.addOrderer(orderer);
+        channel.initialize();
+
+        // 升级提案
+        UpgradeProposalRequest upgradeProposalRequest=hfClient.newUpgradeProposalRequest();
+        upgradeProposalRequest.setArgs(args);
+        upgradeProposalRequest.setFcn(funcName);
+        upgradeProposalRequest.setChaincodeLanguage(lang);
+
+        // 背书策略
+        ChaincodeEndorsementPolicy chaincodeEndorsementPolicy=new ChaincodeEndorsementPolicy();
+        chaincodeEndorsementPolicy.fromYamlFile(new File("D:\\java_project\\fabricsdk\\src\\main\\resources\\policy\\chaincodeendorsementpolicy.yaml"));
+        upgradeProposalRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
+
+        ChaincodeID.Builder builder= ChaincodeID.newBuilder().setName(chaincodeName).setVersion(chaincodeVersion);
+        upgradeProposalRequest.setChaincodeID(builder.build());
+        Collection<ProposalResponse> responses=channel.sendUpgradeProposal(upgradeProposalRequest);
+
+        for (ProposalResponse response:responses){
+            if(response.getStatus().getStatus()==200){
+                log.info("{} init success",response.getPeer().getName());
+            }else{
+                log.info("{} init fail",response.getMessage());
+            }
+        }
+        channel.sendTransaction(responses);
+
+    }
+
 
     public Orderer getOrderer(String name,String grpcUrl,String tlsFilePath) throws  Exception{
 
