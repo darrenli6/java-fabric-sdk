@@ -1,3 +1,5 @@
+ 
+
 ### 用命令创建channel
 
 ``` 
@@ -11,6 +13,33 @@ peer channel list
 ```
 
 
+### 查看安装的channel 
+
+```aidl
+
+peer channel list
+```
+
+### 查看安装的chaincode 
+
+
+```aidl
+
+root@fab6e389b323:/opt/gopath/src/github.com/hyperledger/fabric/peer# peer chaincode list --installed 
+Get installed chaincodes on peer:
+Name: basicinfo, Version: 2.0, Path: basicinfo, Id: 131177c8cd9d094281c0bc485bb5d91f6244d098780740dbe9fbcb971b9b5884
+Name: mycc, Version: 1.0, Path: github.com/chaincode/chaincode_example02/go/, Id: 333a19b11063d0ade7be691f9f22c04ad369baba15660f7ae9511fd1a6488209
+```
+
+
+### 实例化chaincode
+
+过程：client 背书拿到提案，然后给order节点进行上块操作
+
+
+
+```
+```
 
 ##### fabric-java-sdk使用说明
 
