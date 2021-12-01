@@ -267,6 +267,98 @@ Name: mycc, Version: 1.0, Path: github.com/chaincode/chaincode_example02/go/, Es
 
 
     }
+
+    public void regist() throws Exception{
+
+        FabricCAClient caclient=new FabricCAClient("http://192.168.109.130",null);
+        UserContext register=new UserContext();
+        register.setName("darren");
+        register.setAffiliation("org2");
+        Enrollment enrollment=caclient.enroll("admin","adminpw");
+        UserContext registar=new UserContext();
+        registar.setName("admin");
+        registar.setAffiliation("org2");
+        registar.setEnrollment(enrollment);
+        String secret =caclient.register(registar,register);
+        System.out.println(secret);
+        //  darren RhoSSClIboRo
+    }
+
+    //通过fabric-ca注册出来的用户查询合约
+
+
+    public void queryChainByUser() throws Exception{
+        FabricCAClient caclient=new FabricCAClient("http://192.168.109.130",null);
+        UserContext userContext=new UserContext();
+        userContext.setAffiliation("Org2");
+        userContext.setMspId("Org2MSP");
+        userContext.setAccount("darren");
+        userContext.setName("admin");
+
+        Enrollment enrollment=caclient.enroll("darren","RhoSSClIboRo");
+
+        userContext.setEnrollment(enrollment);
+        FabricClient fabricClient=new FabricClient(userContext);
+
+
+
+        Peer peer0 = fabricClient.getPeer("peer0.org1.example.com","grpcs://peer0.org1.example.com:7051",tlsPeer0Org1Path);
+        Peer peer1 = fabricClient.getPeer("peer0.org2.example.com","grpcs://peer0.org2.example.com:9051",tlsPeer0Org2Path);
+
+
+        List<Peer> peers=new ArrayList<>();
+        peers.add(peer0);
+        peers.add(peer1);
+
+        String initArgs[] = {"110116"};
+
+        Map map=fabricClient.query(peers,"mychannel",TransactionRequest.Type.GO_LANG,
+                "basicinfo",
+
+                "query",initArgs);
+
+        System.out.println(map);
+
+
+
+
+    }
+
+
+    public void invokeChainByUser() throws Exception{
+        FabricCAClient caclient=new FabricCAClient("http://192.168.109.130",null);
+        UserContext userContext=new UserContext();
+        userContext.setAffiliation("Org2");
+        userContext.setMspId("Org2MSP");
+        userContext.setAccount("darren");
+        userContext.setName("admin");
+
+        Enrollment enrollment=caclient.enroll("darren","RhoSSClIboRo");
+
+        userContext.setEnrollment(enrollment);
+
+
+        FabricClient fabricClient=new FabricClient(userContext);
+
+
+
+        Peer peer0 = fabricClient.getPeer("peer0.org1.example.com","grpcs://peer0.org1.example.com:7051",tlsPeer0Org1Path);
+        Peer peer1 = fabricClient.getPeer("peer0.org2.example.com","grpcs://peer0.org2.example.com:9051",tlsPeer0Org2Path);
+
+
+        List<Peer> peers=new ArrayList<>();
+        peers.add(peer0);
+        peers.add(peer1);
+
+        String initArgs[] = {"110116","{\"name\":\"zhaobiao\",\"identity\":\"110116\",\"mobile\":\"17600736448\"}"};
+        Orderer orderer = fabricClient.getOrderer("orderer.example.com","grpcs://orderer.example.com:7050",tlsOrderFilePath);
+
+        fabricClient.invoke("mychannel",TransactionRequest.Type.GO_LANG,
+                "basicinfo",
+                orderer,peers,
+                "save",initArgs);
+
+    }
     public static void main(String[] args) throws Exception{
 
         SdkMain sdkMain=new SdkMain();
@@ -274,6 +366,9 @@ Name: mycc, Version: 1.0, Path: github.com/chaincode/chaincode_example02/go/, Es
 //        sdkMain.instanceChain();
 //        sdkMain.installChain();
 //        sdkMain.invokeChain();
-        sdkMain.queryChain();
+//        sdkMain.queryChain();
+//        sdkMain.regist();
+        sdkMain.queryChainByUser();
+//        sdkMain.invokeChainByUser();
     }
 }
