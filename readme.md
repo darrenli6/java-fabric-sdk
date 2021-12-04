@@ -26,7 +26,7 @@ peer channel list
 
 ### 查看安装的channel 
 
-```aidl
+```
 
 peer channel list
 ```
@@ -34,7 +34,7 @@ peer channel list
 ### 查看安装的chaincode 
 
 
-```aidl
+```
 
 root@fab6e389b323:/opt/gopath/src/github.com/hyperledger/fabric/peer# peer chaincode list --installed 
 Get installed chaincodes on peer:
